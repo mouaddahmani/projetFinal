@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{asset('assets/css/styles.css')}}" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+
+
+
+{% block body %}
+
+<div class="container">
+
+    <div class="cover">
+        <div class="front">
+            <img src="{{asset('assets/img/frImg.jpg')}}" alt="" />
+            <div class="text">
+                <span class="text-1">Morrocan net<br />
+                    where all the informations you search are available</span>
+                <span class="text-2">Let's get connected</span>
+            </div>
+        </div>
+        <div class="back">
+            <img class="backImg" src="{{asset('assets/img/bcIMG.jpg')}}" alt="" />
+            <div class="text">
+                <span class="text-1">Complete miles of journey <br />
+                    with one step</span>
+                <span class="text-2">Let's get started</span>
+            </div>
+        </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+            <div class="login-form">
+                <div class="title">Login</div>
+                <form method="POST" >
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                    <input type="hidden" name="type" value="login">
+                    <div class="input-boxes">
+                        <div class="input-box">
+                            <i class="fas fa-envelope"></i>
+                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                        </div>
+                        <div class="input-box">
+                            <i class="fas fa-lock"></i>
+                             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="button input-box">
+                            <input type="submit" value="Submit" />
+                        </div>
+                        <div class="text sign-up-text">
+                            Don't have an account? <label for="flip"><a href="/register"> Sigup now</a> </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    {% endblock %}
