@@ -18,36 +18,35 @@ class UserFixtures extends Fixture
         $category=Array();
         $userRepo= $manager->getRepository(User::class);
         $users = $userRepo->findAll();
-        var_dump($users);
-        // $catg =['Visual Designs','Travel Events','Web Development','Video and Audio','Etiam auctor ac arcu'];
-        // $faker =  Factory::create();
-        // for ($i=0; $i<5 ;$i++) { 
-        //     $category[$i] = new Category();
-        //     $category[$i]->setCategoryName($catg[$i]);
+        $catg =['Visual Designs','Travel Events','Web Development','Video and Audio','Etiam auctor ac arcu'];
+        $faker =  Factory::create();
+        for ($i=0; $i<5 ;$i++) { 
+            $category[$i] = new Category();
+            $category[$i]->setCategoryName($catg[$i]);
             
-        //     $manager->persist($category[$i]);
-        // }
+            $manager->persist($category[$i]);
+        }
         
-        // for ($i=0; $i < 25; $i++) { 
-        //     $articels[$i] = new Article();
-        //     $articels[$i]->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true));
-        //     $articels[$i]->setDescription($faker->sentence($nbWords = 50, $variableNbWords = true));
-        //     $articels[$i]->setContent($faker->sentence($nbWords = 150, $variableNbWords = true));
-        //     $articels[$i]->setLikes($faker->numberBetween($min = 0, $max = 150));
-        //     $articels[$i]->setDatePub($faker->dateTime());
-        //     $articels[$i]->setCategory($category[rand(0,4)]);
-        //     $articels[$i]->setPhotoPath('img-0'.rand(1,6).'.jpg');
-        //     $articels[$i]->setUser($users[]);
-        //     for ($j=0; $j < rand(0,12); $j++) { 
-        //         $comment = new Comment();
-        //         $comment->setContent($faker->sentence($nbWords = 150, $variableNbWords = true));
-        //         $comment->setDateCom($faker->dateTime());
-        //         $comment->setArticle($articels[$i]);
-        //         $manager->persist($comment);
-        //     }
-        //     $manager->persist($articels[$i]);
-        // }
+        for ($i=0; $i < 25; $i++) { 
+            $articels[$i] = new Article();
+            $articels[$i]->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true));
+            $articels[$i]->setDescription($faker->sentence($nbWords = 50, $variableNbWords = true));
+            $articels[$i]->setContent($faker->sentence($nbWords = 150, $variableNbWords = true));
+            $articels[$i]->setLikes($faker->numberBetween($min = 0, $max = 150));
+            $articels[$i]->setDatePub($faker->dateTime());
+            $articels[$i]->setCategory($category[rand(0,4)]);
+            $articels[$i]->setPhotoPath('img-0'.rand(1,6).'.jpg');
+            $articels[$i]->setUser($users[rand(0,5)]);
+            for ($j=0; $j < 3; $j++) { 
+                $comment = new Comment();
+                $comment->setContent($faker->sentence($nbWords = 150, $variableNbWords = true));
+                $comment->setDateCom($faker->dateTime());
+                $comment->setArticle($articels[$i]);
+                $manager->persist($comment);
+            }
+            $manager->persist($articels[$i]);
+        }
 
-        // $manager->flush();
+        $manager->flush();
     }
 }

@@ -4,51 +4,47 @@
 
 {% block body %}
 <div class="row tm-row">
+{% for item in articles %}
     <article class="col-12 col-md-6 tm-post">
         <hr class="tm-hr-primary">
-        <a href="post.html" class="effect-lily tm-post-link tm-pt-60">
+        <a href="/article/{{item.getId()}}" class="effect-lily tm-post-link tm-pt-60">
             <div class="tm-post-link-inner">
-                <img src="{{asset('/assets/img/img-01.jpg')}}" alt="Image" class="img-fluid">                            
+                <img src="/assets/img/{{item.getPhotoPath()}}" alt="Image" class="img-fluid">                            
             </div>
             <span class="position-absolute tm-new-badge">New</span>
-            <h2 class="tm-pt-30 tm-color-primary tm-post-title">Simple and useful HTML layout</h2>
+            <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{item.getTitle()}}</h2>
         </a>                    
         <p class="tm-pt-30">
-            There is a clickable image with beautiful hover effect and active title link for each post item. 
-            Left side is a sticky menu bar. Right side is a blog content that will scroll up and down.
+            {{item.getDescription()}}
         </p>
         <div class="d-flex justify-content-between tm-pt-45">
-            <span class="tm-color-primary">Travel . Events</span>
-            <span class="tm-color-primary">June 24, 2020</span>
+            <span class="tm-color-primary">{{item.getCategory().getCategoryName()}}</span>
+            <span class="tm-color-primary">{{item.getDatePub().format('Y-m-d')}}</span>
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-            <span>36 comments</span>
-            <span>by Admin Nat</span>
+            <span>{{item.getComments() | length }} comments</span>
+            <span>by {{item.getUser().getUsername()}}</span>
         </div>
     </article>
+{% endfor %}
+    
 </div>
 <div class="row tm-row tm-mt-100 tm-mb-75">
-    <div class="tm-prev-next-wrapper">
+    {# <div class="tm-prev-next-wrapper">
         <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
         <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-    </div>
+    </div> #}
     <div class="tm-paging-wrapper">
         <span class="d-inline-block mr-3">Page</span>
         <nav class="tm-paging-nav d-inline-block">
             <ul>
-                <li class="tm-paging-item active">
-                    <a href="#" class="mb-2 tm-btn tm-paging-link">1</a>
+            {% for i in range(debut,fin) %}
+                <li class="tm-paging-item {{i == page ? 'active' :''}}">
+                    <a href="/?page={{i}}" class="mb-2 tm-btn tm-paging-link">{{i}}</a>
                 </li>
-                <li class="tm-paging-item">
-                    <a href="#" class="mb-2 tm-btn tm-paging-link">2</a>
-                </li>
-                <li class="tm-paging-item">
-                    <a href="#" class="mb-2 tm-btn tm-paging-link">3</a>
-                </li>
-                <li class="tm-paging-item">
-                    <a href="#" class="mb-2 tm-btn tm-paging-link">4</a>
-                </li>
+            {% endfor %}
+                
             </ul>
         </nav>
     </div>                
