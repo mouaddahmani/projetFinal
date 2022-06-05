@@ -24,6 +24,7 @@ class HomeController extends AbstractController
             $nbr = 6;
         }
         
+        
         $articles = $articleRepo->findBy([],[],$nbr,($page-1) *$nbr);
         $nbrArticle = $articleRepo->count([]);
         $totalpage = ceil($nbrArticle /$nbr);

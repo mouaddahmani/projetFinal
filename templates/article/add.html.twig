@@ -1,4 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<p>add</p>
+<form action="/article/add/newArticle" method='POST' class="mb-5 tm-comment-form">
+    <h2 class="tm-color-primary tm-post-title mb-4">Your Article</h2>
+    <label for="title">Title</label>
+    <input class="form-control" type="text" name="title" id="">
+    <label for="description">description</label>
+    <input class="form-control" type="text" name="description" id="">
+    <label for="category">category</label>
+    <select name="category" id="">
+        <option value="Visual Designs">Visual Designs</option>
+        <option value="Travel Events">Travel Events</option>
+        <option value="Web Development">Web Development</option>
+        <option value="Video and Audio">Video and Audio</option>
+        <option value="Etiam auctor ac arcu">Etiam auctor ac arcu</option>
+    </select>
+    <br>
+    <div class="mb-4">
+        <textarea class="form-control" name="content" rows="10"></textarea>
+    </div>
+    <input hidden type="text" name="user" value='{{app.user.getId()}}'>
+    <div class="text-right">
+        <button  type='submit' class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
+    </div>                                
+</form>  
 {% endblock %}
